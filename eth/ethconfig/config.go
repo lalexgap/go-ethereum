@@ -84,6 +84,7 @@ var Defaults = Config{
 	TrieTimeout:             60 * time.Minute,
 	SnapshotCache:           102,
 	FilterLogCacheSize:      32,
+	FilterTimeout:           5 * time.Minute,
 	Miner:                   miner.DefaultConfig,
 	TxPool:                  core.DefaultTxPoolConfig,
 	RPCGasCap:               50000000,
@@ -170,6 +171,9 @@ type Config struct {
 
 	// This is the number of blocks for which logs will be cached in the filter system.
 	FilterLogCacheSize int
+
+	// How long the filter subscription stays active for
+	FilterTimeout time.Duration
 
 	// Mining options
 	Miner miner.Config

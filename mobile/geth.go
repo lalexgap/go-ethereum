@@ -205,6 +205,7 @@ func NewNode(datadir string, config *NodeConfig) (stack *Node, _ error) {
 		// Register log filter RPC API.
 		filterSystem := filters.NewFilterSystem(lesBackend.ApiBackend, filters.Config{
 			LogCacheSize: ethConf.FilterLogCacheSize,
+			Timeout:      ethConf.FilterTimeout,
 		})
 		rawStack.RegisterAPIs([]rpc.API{{
 			Namespace: "eth",

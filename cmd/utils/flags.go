@@ -506,7 +506,12 @@ var (
 		Usage:    "Raise the open file descriptor resource limit (default = system fd limit)",
 		Category: flags.PerfCategory,
 	}
-
+	FilterTimeout = &cli.DurationFlag{
+		Name:     "filtertimeout",
+		Usage:    "How long a filter subscription will stay active",
+		Category: flags.PerfCategory,
+		Value:    ethconfig.Defaults.FilterTimeout,
+	}
 	// Miner settings
 	MiningEnabledFlag = &cli.BoolFlag{
 		Name:     "mine",
@@ -2050,6 +2055,7 @@ func RegisterFilterAPI(stack *node.Node, backend ethapi.Backend, ethcfg *ethconf
 	isLightClient := ethcfg.SyncMode == downloader.LightSync
 	filterSystem := filters.NewFilterSystem(backend, filters.Config{
 		LogCacheSize: ethcfg.FilterLogCacheSize,
+		Timeout:      ethcfg.FilterTimeout,
 	})
 	stack.RegisterAPIs([]rpc.API{{
 		Namespace: "eth",
